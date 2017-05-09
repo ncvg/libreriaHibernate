@@ -1,8 +1,12 @@
 
-package arquitecturaLibros;
+package arquitecturaLibros.aplicacion.bo;
 
-import java.sql.SQLException;
+
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 
 
 public class Libro {
@@ -11,17 +15,30 @@ public class Libro {
     private String titulo;
     private String categoria;
     
+    @Override
+    public int hashCode(){
+        return isbn.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        String isbnLibro = ((Libro)o).getIsbn();
+        return isbnLibro.equals(isbn);
+    }
+    
     //contructores
     
     public Libro(){
-        
+        super();
     }
     
     public Libro(String isbn){
+        super();
         this.isbn = isbn;
     }
     
     public Libro(String isbn, String titulo, String categoria){
+        super();
         this.isbn = isbn;
         this.titulo = titulo;
         this.categoria = categoria;
@@ -51,8 +68,78 @@ public class Libro {
         this.categoria = newCategoria;
     }
     
+    @SuppressWarnings("unchecked")
+    public static List<Libro> buscarTodasLasCategorias(){
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        String consulta = "SELECT DISTINCT libro.categoria FROM Libro libro";
+        
+        List<Libro> listaDeCategorias = session.createQuery(consulta).list();
+        
+        session.close();
+        return listaDeCategorias;
+    }
     
+    public void insertar(){
+        
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        session.beginTransaction();
+        session.save(this);
+        session.getTransaction().commit();
+    }
     
+    public void borrar(){
+        
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        session.beginTransaction();
+        session.delete(this);
+        session.getTransaction().commit();
+    }
+    
+    public void salvar(){
+        
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        session.beginTransaction();
+        session.delete(this);
+        session.getTransaction().commit();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static List<Libro> buscarTodos(){
+        
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        List<Libro> listaDeLibros = session.createQuery("from Libro libro").list();
+        session.close();
+        return listaDeLibros;
+    }
+    
+    public static Libro buscarPorClave(String isbn){
+        
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        Libro libro = (Libro) session.get(Libro.class, isbn);
+        session.close();
+        return libro;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static List<Libro> buscarPorCategoria(String categoria){
+        
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        Query consulta = session.createQuery("from Libro libro where libro.categoria=:categoria");
+        consulta.setString("categoria",categoria);
+        List<Libro> listaDeLibros = consulta.list();
+        session.close();
+        return listaDeLibros;
+    }
+    
+    /*
+    ESTE ES EL VIEJO CODIGO DE LIBRO EL CUAL USA UNA CLASE LLAMADA DATABASEHELPER
     
     public void insertar(){
         String consultaSQL = "INSERT INTO libros (isbn,titulo,categoria) VALUES ";
@@ -106,5 +193,5 @@ public class Libro {
         
         return listaDeLibros;
     }
-        
+        */
 }

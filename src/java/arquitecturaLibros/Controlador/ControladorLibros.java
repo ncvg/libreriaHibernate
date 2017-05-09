@@ -9,7 +9,7 @@ import arquitecturaLibros.Controlador.Acciones.FormularioInsertarLibroAccion;
 import arquitecturaLibros.Controlador.Acciones.InsertarLibroAccion;
 import arquitecturaLibros.Controlador.Acciones.MostrarLibrosAccion;
 import arquitecturaLibros.Controlador.Acciones.SalvarLibrosAccion;
-import arquitecturaLibros.Libro;
+import arquitecturaLibros.aplicacion.bo.Libro;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;

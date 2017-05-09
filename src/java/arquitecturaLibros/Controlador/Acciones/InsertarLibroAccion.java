@@ -5,7 +5,7 @@
  */
 package arquitecturaLibros.Controlador.Acciones;
 
-import arquitecturaLibros.Libro;
+import arquitecturaLibros.aplicacion.bo.Libro;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

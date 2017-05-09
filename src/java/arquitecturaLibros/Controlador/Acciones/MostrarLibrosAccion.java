@@ -1,6 +1,6 @@
 package arquitecturaLibros.Controlador.Acciones;
 
-import arquitecturaLibros.Libro;
+import arquitecturaLibros.aplicacion.bo.Libro;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
