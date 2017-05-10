@@ -3,17 +3,26 @@ package arquitecturaLibros.aplicacion.bo;
 
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
-
+@Entity
+@Table(name="libros")
 public class Libro {
     
+    @Id
     private String isbn;
     private String titulo;
-    private String categoria;
+    @ManyToOne
+    @JoinColumn(name="categoria")
+    private Categoria categoria;
     
     @Override
     public int hashCode(){
@@ -37,7 +46,7 @@ public class Libro {
         this.isbn = isbn;
     }
     
-    public Libro(String isbn, String titulo, String categoria){
+    public Libro(String isbn, String titulo, Categoria categoria){
         super();
         this.isbn = isbn;
         this.titulo = titulo;
@@ -60,21 +69,21 @@ public class Libro {
         this.titulo = newTitulo;
     }
     
-    public String getCategoria(){
+    public Categoria getCategoria(){
         return this.categoria;
     }
     
-    public void setCategoria(String newCategoria){
+    public void setCategoria(Categoria newCategoria){
         this.categoria = newCategoria;
     }
     
     @SuppressWarnings("unchecked")
-    public static List<Libro> buscarTodasLasCategorias(){
+    public static List<Categoria> buscarTodasLasCategorias(){
         SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
         Session session = factoriaSession.openSession();
-        String consulta = "SELECT DISTINCT libro.categoria FROM Libro libro";
+        String consulta = "SELECT DISTINCT Categoria.id FROM Categoria categoria";
         
-        List<Libro> listaDeCategorias = session.createQuery(consulta).list();
+        List<Categoria> listaDeCategorias = session.createQuery(consulta).list();
         
         session.close();
         return listaDeCategorias;
@@ -103,7 +112,7 @@ public class Libro {
         SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
         Session session = factoriaSession.openSession();
         session.beginTransaction();
-        session.delete(this);
+        session.update(this);
         session.getTransaction().commit();
     }
     
@@ -112,7 +121,8 @@ public class Libro {
         
         SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
         Session session = factoriaSession.openSession();
-        List<Libro> listaDeLibros = session.createQuery("from Libro libro").list();
+        List<Libro> listaDeLibros = session.createQuery("from Libro libro right join fetch"
+                + " libro.categoria").list();
         session.close();
         return listaDeLibros;
     }

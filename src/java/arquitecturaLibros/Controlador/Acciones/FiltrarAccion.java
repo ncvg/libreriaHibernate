@@ -1,6 +1,7 @@
 
 package arquitecturaLibros.Controlador.Acciones;
 
+import arquitecturaLibros.aplicacion.bo.Categoria;
 import arquitecturaLibros.aplicacion.bo.Libro;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,7 @@ public class FiltrarAccion extends Accion{
     public String ejecutar(HttpServletRequest request, HttpServletResponse response){
         
         List<Libro> listaDeLibros = null;
-        List<String> listaDeCategorias = Libro.buscarTodasLasCategorias();
+        List<Categoria> listaDeCategorias = Categoria.buscarTodas();
             
         if(request.getParameter("categoria")==null||
                 request.getParameter("categoria").equals("seleccionar")){

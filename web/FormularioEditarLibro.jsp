@@ -1,4 +1,5 @@
 
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
@@ -6,7 +7,7 @@
     "DTD/xhtml1-strict.dtd">
 
 <%@page import="java.util.List" %>
-<%@page import="arquitecturaLibros.Libro"%>
+<%@page import="arquitecturaLibros.aplicacion.bo.Libro"%>
 <%Libro libro = Libro.buscarPorClave(request.getParameter("isbn"));%>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
@@ -33,7 +34,7 @@
                         <label for="categoria">Categoria:</label>
                         <select name="Categoria">
                             <c:forEach var="categoria" items="${listaDeCategorias}">
-                                <option value="${categoria}">${categoria}</option>
+                                <option value="${categoria.id}">${categoria.id}</option>
                             </c:forEach>
                             
                         </select>

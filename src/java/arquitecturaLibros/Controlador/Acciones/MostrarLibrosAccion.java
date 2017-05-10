@@ -1,5 +1,6 @@
 package arquitecturaLibros.Controlador.Acciones;
 
+import arquitecturaLibros.aplicacion.bo.Categoria;
 import arquitecturaLibros.aplicacion.bo.Libro;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +12,9 @@ public class MostrarLibrosAccion extends Accion {
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse reponse){
         
+        
         List<Libro> listaDeLibros = Libro.buscarTodos();
-        List<String> listaDeCategorias = Libro.buscarTodasLasCategorias();
+        List<Categoria> listaDeCategorias = Categoria.buscarTodas();
         request.setAttribute("listaDeLibros", listaDeLibros);
         request.setAttribute("listaDeCategorias", listaDeCategorias);
         

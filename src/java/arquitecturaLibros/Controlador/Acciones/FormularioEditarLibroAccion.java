@@ -1,5 +1,6 @@
 package arquitecturaLibros.Controlador.Acciones;
 
+import arquitecturaLibros.aplicacion.bo.Categoria;
 import arquitecturaLibros.aplicacion.bo.Libro;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ public class FormularioEditarLibroAccion extends Accion {
     public String ejecutar(HttpServletRequest request, HttpServletResponse response){
         
         String isbn = request.getParameter("isbn");
-        List<String> listaDeCategorias = Libro.buscarTodasLasCategorias();
+        List<Categoria> listaDeCategorias = Categoria.buscarTodas();
         Libro libro = Libro.buscarPorClave(request.getParameter("isbn"));
         request.setAttribute("listaDeCategorias", listaDeCategorias);
         request.setAttribute("libro", libro);

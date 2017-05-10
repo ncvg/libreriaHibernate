@@ -32,7 +32,7 @@
                         <!--
                         <select name="categoria">
                             <cforEach var="categoria" items="{listaDeCategorias}">
-                                <option value="{categoria}">{categoria}</option>
+                                <option value="{categoria.id}">{categoria.descripcion}</option>
                             </cforEach>
                         </select><br/> -->
                     </p>

@@ -1,5 +1,6 @@
 package arquitecturaLibros.Controlador.Acciones;
 
+import arquitecturaLibros.aplicacion.bo.Categoria;
 import arquitecturaLibros.aplicacion.bo.Libro;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +12,8 @@ public class FormularioInsertarLibroAccion extends Accion {
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response){
         
-        List<String> listaDeCategorias = null;
-        listaDeCategorias = Libro.buscarTodasLasCategorias();
+        List<Categoria> listaDeCategorias = null;
+        listaDeCategorias = Categoria.buscarTodas();
         request.setAttribute("listaDeCategorias", listaDeCategorias);
         
         return "FormularioInsertarLibro.jsp";

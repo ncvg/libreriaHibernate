@@ -2,7 +2,7 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@page import="java.util.List"%>
-<%@page import="arquitecturaLibros.Libro" %>
+<%@page import="arquitecturaLibros.aplicacion.bo.Libro" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html/loose.dtd">
@@ -17,7 +17,7 @@
                 <option value="seleccionar">seleccionar</option>
                 
                 <c:forEach var="categoria" items="${listaDeCategorias}">
-                    <option value="${categoria}">${categoria}</option>
+                    <option value="${categoria.id}">${categoria.id}</option>
                 </c:forEach>
             
                 
@@ -26,7 +26,9 @@
         </form>
         <br/>
         <c:forEach var="libro" items="${listaDeLibros}">
-            ${libro.isbn}${libro.titulo}${libro.categoria}
+            ${libro.isbn}
+            ${libro.titulo}
+            ${libro.categoria.descripcion}
             <a href="BorrarLibro.do?isbn=${libro.isbn}">borrar</a>
             <a href="FormularioEditarLibro.do?isbn=${libro.isbn}">editar</a>
             <br/>
